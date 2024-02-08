@@ -9,14 +9,14 @@
 		<Copyright>Copyright © Zijian Huang 2015-2024</Copyright>
 		<Description>TypeScript CodeDOM</Description>
 		<PackageLicenseUrl></PackageLicenseUrl>
-		<PackageProjectUrl>https://github.com/zijianhuang/webapiclientgen</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/zijianhuang/TypeScriptCodeDOM</PackageProjectUrl>
 		<PackageTags>TypeScript,Code DOM</PackageTags>
 		<PackageReleaseNotes>More CodeDOM classes supported to maximize the intersection of CodeDOM and TypeScript language features.</PackageReleaseNotes>
 		<NeutralLanguage>en</NeutralLanguage>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<Version>3.1</Version>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<RepositoryUrl>https://github.com/zijianhuang/webapiclientgen</RepositoryUrl>
+		<RepositoryUrl>https://github.com/zijianhuang/TypeScriptCodeDOM</RepositoryUrl>
 		<PackageIcon>TypeScriptCodeDOM64.png</PackageIcon>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<NoWarn>1701;1702;1705;1591</NoWarn>
@@ -32,10 +32,16 @@
 		<CopyDebugSymbolFilesFromPackages>true</CopyDebugSymbolFilesFromPackages>
 		<CopyDocumentationFilesFromPackages>true</CopyDocumentationFilesFromPackages>
 	</PropertyGroup>
-	
+
 	<ItemGroup>
-		<PackageReference Include="System.CodeDom" Version="7.0.0" />
+		<PackageReference Include="System.CodeDom" Version="8.0.0" />
 	</ItemGroup>
+
+	<PropertyGroup>
+		<!--<PublishRepositoryUrl>true</PublishRepositoryUrl>-->
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+	</PropertyGroup>
 
 	<ItemGroup>
 		<Compile Update="TypeScriptCodeProvider.cs">

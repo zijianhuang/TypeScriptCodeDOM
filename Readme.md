@@ -9,11 +9,11 @@ While JSCriptCodeProvider is good enough for generating JavaScript codes for Int
 1. Naturally and inheriently adapt the evolution of the JavaScript standard as long as TypeScript will.
 1. Live well with TypeScript frameworks like Angular 2+ and Auralia. And with Angular Reactive Forms, [runtime validation](https://github.com/zijianhuang/webapiclientgen/wiki/Angular-Reactive-Forms) could become possible, similar to the use cases of using validation attributes to decorate a member property of a .NET class.
 
-![TypeScript CodeDOM logo](https://raw.githubusercontent.com/zijianhuang/webapiclientgen/master/Doc/icons/TypeScriptCodeDOM128.png)
+![TypeScript CodeDOM logo](/Fonlow.TypeScriptCodeDomCore/TypeScriptCodeDOM64.png)
 
 ## What Supported and Not
 
-CodeDOM cover almost every essential C# language features, however, not every features of such coverage is applicable to TypeScript.
+CodeDOM covers almost every essential C# language features, however, not every features of such coverage is applicable to TypeScript.
 
 ### [GeneratorSupport Enum](https://learn.microsoft.com/en-us/dotnet/api/system.codedom.compiler.generatorsupport)
 

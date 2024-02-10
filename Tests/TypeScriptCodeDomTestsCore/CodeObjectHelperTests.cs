@@ -1,9 +1,5 @@
 ﻿using Fonlow.TypeScriptCodeDom;
 using System;
-using System.CodeDom;
-using System.CodeDom.Compiler;
-using System.IO;
-using System.Text;
 using Xunit;
 
 namespace TypeScriptCodeDomTestsCore
@@ -33,7 +29,16 @@ namespace TypeScriptCodeDomTestsCore
 			Assert.True(CodeObjectHelper.IsSimpleType(typeof(Nullable<DemoWebApi.DemoData.AddressType>)));
 		}
 
+		[Fact]
+		public void TestIsSimpleTypeWithNull()
+		{
+			Assert.Throws<ArgumentNullException>(()=>CodeObjectHelper.IsSimpleType(null));
+		}
 
-
+		[Fact]
+		public void TestIsSimpleTypeWithCustomgeneric()
+		{
+			Assert.False(CodeObjectHelper.IsSimpleType(typeof(DemoWebApi.DemoData.MimsResult<string>)));
+		}
 	}
 }

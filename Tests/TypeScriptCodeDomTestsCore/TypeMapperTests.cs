@@ -1,9 +1,5 @@
 ﻿using Fonlow.TypeScriptCodeDom;
 using System;
-using System.CodeDom;
-using System.CodeDom.Compiler;
-using System.IO;
-using System.Text;
 using Xunit;
 
 namespace TypeScriptCodeDomTestsCore
@@ -13,13 +9,26 @@ namespace TypeScriptCodeDomTestsCore
 		[Fact]
 		public void TestIsSimpleSystemType()
 		{
-			Assert.True(TypeMapper.IsSimpleSystemType(typeof(DateTime)));
+			Assert.True(TypeMapper.IsSimpleSystemType(typeof(DateTime).FullName));
 		}
 
 		[Fact]
-		public void TestIsSimpleSystemTypeWithTypeFullName()
+		public void TestIsSimpleSystemTypeWithVoid()
 		{
-			Assert.True(TypeMapper.IsSimpleSystemType("System.DateTime"));
+			Assert.True(TypeMapper.IsSimpleSystemType(typeof(void).FullName));
 		}
+
+		[Fact]
+		public void TestIsSimpleSystemTypeWithNull()
+		{
+			Assert.Throws<ArgumentNullException>(()=>TypeMapper.IsSimpleSystemType(null));
+		}
+
+		[Fact]
+		public void TestIsSimpleSystemTypeWithSomethingElse()
+		{
+			Assert.False(TypeMapper.IsSimpleSystemType("System.SomethingElse"));
+		}
+
 	}
 }

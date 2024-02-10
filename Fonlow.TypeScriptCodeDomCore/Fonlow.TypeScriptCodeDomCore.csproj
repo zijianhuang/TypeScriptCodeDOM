@@ -14,7 +14,7 @@
 		<PackageReleaseNotes>More CodeDOM classes supported to maximize the intersection of CodeDOM and TypeScript language features.</PackageReleaseNotes>
 		<NeutralLanguage>en</NeutralLanguage>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<Version>3.1</Version>
+		<Version>3.1.1</Version>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryUrl>https://github.com/zijianhuang/TypeScriptCodeDOM</RepositoryUrl>
 		<PackageIcon>TypeScriptCodeDOM64.png</PackageIcon>

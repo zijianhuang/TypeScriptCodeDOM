@@ -38,7 +38,7 @@ TypeScript CodeDOM had been started as a by-product of [WebApiClientGen](https:/
 * [Poco2TsTestsCore](https://github.com/zijianhuang/webapiclientgen/tree/master/Tests/Poco2TsTestsCore)
 * [Poco2NgFormTests](https://github.com/zijianhuang/webapiclientgen/tree/master/Tests/Poco2NgFormTests)
 
-![Poco2TsTests](https://github.com/zijianhuang/webapiclientgen/raw/master/Doc/Poco2TsTests.png)
+![Poco2TsTests](https://github.com/zijianhuang/webapiclientgen/raw/master/Doc/images/Poco2TsTests.png)
 
 Most unit test cases of these test suites are of integration testing for TypeScript CodeDOM.
 
@@ -68,13 +68,13 @@ It is optional however highly recommended that you run these 2 test suites to en
 
 The first test suite will launch "DemoCoreWeb" hosted by local DotNet Kestrel then shutdown the Web service after all tests have been executed. 
 
-![WebApiClientGenTests](https://github.com/zijianhuang/webapiclientgen/raw/master/Doc/WebApiClientGenTests.png)
+![WebApiClientGenTests](https://github.com/zijianhuang/webapiclientgen/raw/master/Doc/images/WebApiClientGenTests.png)
 
 To run the 2nd test suite:
 1. Launch "DemoCoreWeb" using [StartDemoCoreWeb.ps1](https://github.com/zijianhuang/webapiclientgen/blob/master/StartDemoCoreWeb.ps1).
 1. Under folder "HeroesDemo", run `ng test`.
 
-![Angular Tests](https://github.com/zijianhuang/webapiclientgen/raw/master/Doc/ngTests.png)
+![Angular Tests](https://github.com/zijianhuang/webapiclientgen/raw/master/Doc/images/ngTests.png)
 
 **Hints:**
 

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Diagnostics;
-using System.Xml.Linq;
 
 namespace Fonlow.TypeScriptCodeDom
 {
@@ -1151,6 +1150,17 @@ https://angular.io/guide/dependency-injection-in-action
 					: "class";
 		}
 
+		static readonly string[] typeOfTypeTexts = { "interface", "class", "enum" };
+		/// <summary>
+		/// Return interface, class or enum.
+		/// </summary>
+		/// <param name="t"></param>
+		/// <returns></returns>
+		protected string GetTypeOfTypeText(TypeOfType t) // v3.1.2
+		{
+			return typeOfTypeTexts[(int)t];
+		}
+
 		protected TypeOfType GetTypeOfType(CodeTypeDeclaration typeDeclaration)
 		{
 			return typeDeclaration.IsEnum
@@ -1245,7 +1255,6 @@ https://angular.io/guide/dependency-injection-in-action
 
 			if (string.IsNullOrEmpty(type.FullName))
 			{
-				//throw new ArgumentException($"type.FullName is null or empty.", nameof(type));
 				//Example: ReflectedType = {Name = "MimsResult`1" FullName = "DemoWebApi.DemoData.MimsResult`1"}; Name = T
 				return false;
 			}

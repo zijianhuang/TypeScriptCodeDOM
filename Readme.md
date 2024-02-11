@@ -3,11 +3,11 @@
 1. [VBCodeProvider](https://learn.microsoft.com/en-us/dotnet/api/microsoft.visualbasic.vbcodeprovider?view=dotnet-plat-ext-8.0)
 1. [JScriptCodeProvider](https://learn.microsoft.com/en-us/dotnet/api/microsoft.jscript.jscriptcodeprovider?view=dotnet-plat-ext-8.0)
 
-While JSCriptCodeProvider is good enough for generating JavaScript codes for Internet Explorer however IE had been discoutinued. TypeScriptCodeProvider provides extra benefits over a "JavaScript Provider":
+While JSCriptCodeProvider is good enough for generating JavaScript codes for Internet Explorer however IE had been discoutinued. TypeScriptCodeProvider provides extra benefits over a "JavaScript Provider" through generating TypeScript codes:
 1. Strongly typed interfaces and function prototypes for validation during design time and compile time.
-1. Re-use some portion of CodeDOM codes if a code generator toolset like [WebApiClientGen](https://github.com/zijianhuang/webapiclientgen) and [OpenApiClientGen](https://github.com/zijianhuang/openapiclientgen) targets multiple OO languages.
+1. Re-use some portions of CodeDOM codes if a code generator toolset like [WebApiClientGen](https://github.com/zijianhuang/webapiclientgen) and [OpenApiClientGen](https://github.com/zijianhuang/openapiclientgen) targets multiple OO languages and multiple TypeScript libraries/frameworks.
 1. Naturally and inheriently adapt the evolution of the JavaScript standard as long as TypeScript will.
-1. Live well with TypeScript frameworks like Angular 2+ and Auralia. And with Angular Reactive Forms, [runtime validation](https://github.com/zijianhuang/webapiclientgen/wiki/Angular-Reactive-Forms) could become possible, similar to the use cases of using validation attributes to decorate a member property of a .NET class.
+1. Live well with TypeScript frameworks like Angular 2+ and Auralia. And with Angular Reactive Forms, [runtime validation](https://github.com/zijianhuang/webapiclientgen/wiki/Angular-Reactive-Forms) could become possible, similar to the use cases of using [validation attributes to decorate a member property of a .NET class](https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations).
 
 ![TypeScript CodeDOM logo](/Fonlow.TypeScriptCodeDomCore/TypeScriptCodeDOM64.png)
 
@@ -114,12 +114,15 @@ Most supported classes are covered by unit testing, while some are covered by in
 * [Client API codes with typed forms and validators generated from Web API](https://github.com/zijianhuang/webapiclientgen/blob/master/HeroesDemo/src/clientapi/WebApiCoreNG2FormGroupClientAuto.ts)
 * [OpenAPI to Angular 5+](https://github.com/zijianhuang/openapiclientgen/blob/master/Tests/SwagTsTests/NG2Results/) and [integration tests for pet.yaml](https://github.com/zijianhuang/openapiclientgen/tree/master/ng2/src)
 * [OpenAPI to Angular Reactive Typed Forms](https://github.com/zijianhuang/openapiclientgen/blob/master/Tests/SwagTsTests/NG2FormGroupResults) 
-* [OpenAPI to Aurelia](https://github.com/zijianhuang/openapiclientgen/tree/master/Tests/SwagTests/AureliaResults) and [integration tests for pet.yaml](https://github.com/zijianhuang/openapiclientgen/tree/master/aurelia/src)
-* [OpenAPI to AXIOS](https://github.com/zijianhuang/openapiclientgen/tree/master/Tests/SwagTests/AxiosResults) and [integration tests for pet.yaml](https://github.com/zijianhuang/openapiclientgen/tree/master/axios/src)
-* [OpenAPI to Fetch API](https://github.com/zijianhuang/openapiclientgen/tree/master/Tests/SwagTests/FetchResults) and [integration tests for pet.yaml](https://github.com/zijianhuang/openapiclientgen/tree/master/fetchapi/src)
-* [OpenAPI to jQuery](https://github.com/zijianhuang/openapiclientgen/tree/master/Tests/SwagTests/JqResults) and [integration tests for pet.yaml](https://github.com/zijianhuang/openapiclientgen/tree/master/jq/src)
+* [OpenAPI to Aurelia](https://github.com/zijianhuang/openapiclientgen/tree/master/Tests/SwagTsTests/AureliaResults) and [integration tests for pet.yaml](https://github.com/zijianhuang/openapiclientgen/tree/master/aurelia/src)
+* [OpenAPI to AXIOS](https://github.com/zijianhuang/openapiclientgen/tree/master/Tests/SwagTsTests/AxiosResults) and [integration tests for pet.yaml](https://github.com/zijianhuang/openapiclientgen/tree/master/axios/src)
+* [OpenAPI to Fetch API](https://github.com/zijianhuang/openapiclientgen/tree/master/Tests/SwagTsTests/FetchResults) and [integration tests for pet.yaml](https://github.com/zijianhuang/openapiclientgen/tree/master/fetchapi/src)
+* [OpenAPI to jQuery](https://github.com/zijianhuang/openapiclientgen/tree/master/Tests/SwagTsTests/JqResults) and [integration tests for pet.yaml](https://github.com/zijianhuang/openapiclientgen/tree/master/jq/src)
 
+#### TypeScript Code Generators
 
+* Nuget package [Strongly Typed Web API Client Generators](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore) and its plugins for JavaScript libraries and frameworks: [jQuery](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.jQuery), [FetchAPI](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.Fetch), [AXIOS](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.Axios), [Aurelia](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.Aurelia), [Angular 2+](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.NG2), [Angular Reactive Forms](https://www.nuget.org/packages/Fonlow.WebApiClientGenCore.NG2FormGroup).
+* Command Line Program [Strongly Typed OpenAPI Client Generators](https://github.com/zijianhuang/openapiclientgen/releases) whic also generates codes for Angular 2+, Angular Reactive Forms, Aurelia, AXIOS, FetchAPI and jQuery.
 
 ### CodeDOM Features Applicable to TypeScript but not Supported in TypeScriptProvider
 
@@ -147,4 +150,6 @@ Most supported classes are covered by unit testing, while some are covered by in
 * [CodeSnippetCompileUnit](https://learn.microsoft.com/en-us/dotnet/api/system.codedom.codesnippetcompileunit)
 * [CodeTypeConstructor](https://learn.microsoft.com/en-us/dotnet/api/system.codedom.codetypeconstructor) . [Alternative](https://github.com/Microsoft/TypeScript/issues/265).
 
+## History
 
+TypeScript CodeDOM had been a by-product of [Strongly Typed Web API Client Generators](https://github.com/zijianhuang/webapiclientgen) since October 2015 until Feburary 2024, as a foundation library of TypeScript code generators of WebApiClientGen and then OpenApiClientGen, as well as internal code generators in some companies in whcih the devlopment teams have chosen the CodeDOM approach over templates.

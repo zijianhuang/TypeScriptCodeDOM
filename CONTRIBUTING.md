@@ -91,7 +91,7 @@ Your integration test suites for the generated TypeScript codes are probably sim
 
 **Steps:**
 
-1. Fork [WebApiClientGen](https://github.com/zijianhuang/openapiclientgen)
+1. Fork [OpenApiClientGen](https://github.com/zijianhuang/openapiclientgen)
 1. Build and run all test suites except "SwagApiTests" and "SwagApiTestsTextJson".
 1. Import the locally built Nuget package of TypeScript CodeDOM.
 1. Build and run the test suites selected again.

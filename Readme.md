@@ -9,6 +9,10 @@ While JSCriptCodeProvider is good enough for generating JavaScript codes for Int
 1. Naturally and inheriently adapt the evolution of the JavaScript standard as long as TypeScript will.
 1. Live well with TypeScript frameworks like Angular 2+ and Auralia. And with Angular Reactive Forms, [runtime validation](https://github.com/zijianhuang/webapiclientgen/wiki/Angular-Reactive-Forms) could become possible, similar to the use cases of using [validation attributes to decorate a member property of a .NET class](https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations).
 
+Nuget package:
+
+* [Fonlow.TypeScriptCodeDomCore](https://www.nuget.org/packages/Fonlow.TypeScriptCodeDomCore)
+
 ![TypeScript CodeDOM logo](/Fonlow.TypeScriptCodeDomCore/TypeScriptCodeDOM64.png)
 
 ## What Supported and Not
@@ -153,3 +157,7 @@ Most supported classes are covered by unit testing, while some are covered by in
 ## History
 
 TypeScript CodeDOM had been a by-product of [Strongly Typed Web API Client Generators](https://github.com/zijianhuang/webapiclientgen) since October 2015 until Feburary 2024, as a foundation library of TypeScript code generators of WebApiClientGen and then OpenApiClientGen, as well as internal code generators in some companies in whcih the devlopment teams have chosen the CodeDOM approach over templates.
+
+Legacy repositories:
+* [Fonlow.TypeScriptCodeDom](https://github.com/zijianhuang/webapiclientgen/tree/LastCore31/Fonlow.TypeScriptCodeDomShared) for .NET Framework and [its Nuget package](https://www.nuget.org/packages/Fonlow.TypeScriptCodeDOM).
+* [Fonlow.TypeScriptCodeDomCore](https://github.com/zijianhuang/webapiclientgen/tree/master/Fonlow.TypeScriptCodeDomCore) in WebApiClientGen

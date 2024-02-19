@@ -15,6 +15,12 @@ Nuget package:
 
 ![TypeScript CodeDOM logo](/Fonlow.TypeScriptCodeDomCore/TypeScriptCodeDOM64.png)
 
+## What For and Not
+
+TypeScript CodeDOM is for code generators that use CodeDOM over template or Roslyn, for example, Fonlow.Poco2TS that reads an assembly with POCO classes, and WebApiClientGen that reads assemblies and the run time type info of a running Web API, and then create Code DOM that could be used to generate C# and TypeScript codes.
+
+There are scenarios that Roslyn and template may provide more powerful features that you want and help you to write less codes with simplier design when developing the code generators.
+
 ## What Supported and Not
 
 CodeDOM covers almost every essential C# language features, however, not every features of such coverage is applicable to TypeScript.

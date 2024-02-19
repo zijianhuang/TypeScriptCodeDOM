@@ -1,7 +1,7 @@
 ﻿using System;
 using System.CodeDom;
 using System.Collections.Generic;
-using static System.Net.WebRequestMethods;
+using System.Numerics;
 
 namespace Fonlow.TypeScriptCodeDom
 {
@@ -14,12 +14,18 @@ namespace Fonlow.TypeScriptCodeDom
 		{
 			{typeof(int).FullName, "number"},
 			{typeof(uint).FullName, "number"},
-			{typeof(long).FullName, "number"},
-			{typeof(ulong).FullName, "number"},
+			{typeof(long).FullName, "string"}, //JS supports 2^53-1, -(2^53 - 1), code gen should provide an option to make it BigInt
+			{typeof(ulong).FullName, "string"},
 			{typeof(short).FullName, "number"},
 			{typeof(ushort).FullName, "number"},
 			{typeof(byte).FullName, "number"},
 			{typeof(sbyte).FullName, "number"}, //https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/integral-numeric-types
+
+			{typeof(Int128).FullName, "string"}, //https://learn.microsoft.com/en-us/dotnet/api/system.int128
+			{typeof(UInt128).FullName, "string"},
+
+			{typeof(BigInteger).FullName, "string"},//https://learn.microsoft.com/en-us/dotnet/api/system.numerics.biginteger
+			//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt
 
 			{typeof(float).FullName, "number"},
 			{typeof(double).FullName, "number"},
@@ -56,21 +62,6 @@ namespace Fonlow.TypeScriptCodeDom
 		{
 			return !type.BaseType.Equals(typeNameOfObject);
 		}
-
-		///// <summary>
-		///// If the type matches the dictionary of C# types to TypeScript type.
-		///// </summary>
-		///// <param name="type">Struct or class in namespace System.</param>
-		///// <returns></returns>
-		//public static bool IsSimpleSystemType(Type type)
-		//{
-		//	if (type == null)
-		//	{
-		//		throw new ArgumentNullException(nameof(type));
-		//	}
-
-		//	return typeMap.ContainsKey(type.FullName);
-		//}
 
 		/// <summary>
 		/// If the fullname of the .NET type matches the dictionary of C# types to TypeScript type.

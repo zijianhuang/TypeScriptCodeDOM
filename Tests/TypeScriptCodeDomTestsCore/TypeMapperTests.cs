@@ -1,5 +1,6 @@
 ﻿using Fonlow.TypeScriptCodeDom;
 using System;
+using System.Numerics;
 using Xunit;
 
 namespace TypeScriptCodeDomTestsCore
@@ -10,6 +11,8 @@ namespace TypeScriptCodeDomTestsCore
 		public void TestIsSimpleSystemType()
 		{
 			Assert.True(TypeMapper.IsSimpleSystemType(typeof(DateTime).FullName));
+			Assert.True(TypeMapper.IsSimpleSystemType(typeof(Int128).FullName));
+			Assert.True(TypeMapper.IsSimpleSystemType(typeof(BigInteger).FullName));
 		}
 
 		[Fact]

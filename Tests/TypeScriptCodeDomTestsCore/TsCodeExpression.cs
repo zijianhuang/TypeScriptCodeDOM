@@ -185,7 +185,7 @@ namespace TypeScriptCodeDomTests
 		public void TestCodeCastExpression()
 		{
 			TestCodeExpression(new CodeCastExpression("System.Int64", new CodeSnippetExpression("Something") ),
-				"(Something as number)");
+				"(Something as string)");
 		}
 	}
 }

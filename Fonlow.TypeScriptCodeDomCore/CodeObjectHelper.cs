@@ -105,7 +105,7 @@ namespace Fonlow.TypeScriptCodeDom
 
 			}
 
-			var tsTypeInfo = e.AttributeType.UserData["TsTypeInfo"] as TsTypeInfo;
+			var tsTypeInfo = e.AttributeType.UserData[UserDataKeys.TsTypeInfo] as TsTypeInfo;
 			bool isInterface = tsTypeInfo != null && tsTypeInfo.TypeOfType == TypeOfType.IsInterface;
 			if (isInterface)
 			{
@@ -857,7 +857,7 @@ https://angular.io/guide/dependency-injection-in-action
 						GenerateCodeFromAttributeDeclarationCollectionForParameter(d.CustomAttributes, w, o);
 					}
 
-					var isMethodParameter = (d.Type.UserData["IsMethodParameter"] as bool?).HasValue;
+					var isMethodParameter = (d.Type.UserData[UserDataKeys.IsMethodParameter] as bool?).HasValue;
 					var typeText = GetCodeTypeReferenceText(d.Type);
 					var alreadyNullable = typeText.EndsWith("| null");
 					var isAny = d.Type.BaseType == "any";
@@ -1223,7 +1223,7 @@ https://angular.io/guide/dependency-injection-in-action
 			}
 
 			var isAny = codeMemberField.Name == "any";
-			var fieldTypeInfo = codeMemberField.Type.UserData["FieldTypeInfo"] as FieldTypeInfo;
+			var fieldTypeInfo = codeMemberField.Type.UserData[UserDataKeys.FieldTypeInfo] as FieldTypeInfo;
 			if (fieldTypeInfo != null)
 			{
 				var isComplex = fieldTypeInfo.IsArray || fieldTypeInfo.IsComplex;

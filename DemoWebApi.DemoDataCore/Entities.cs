@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using DemoWebApi.DemoData.Base;
+using System.Numerics;
 
 namespace DemoWebApi.DemoData.Base
 {
@@ -403,11 +404,33 @@ namespace DemoWebApi.DemoData
 		[DataMember(EmitDefaultValue = false)]
 		public Guid IdNotEmitDefaultValue { get; set; }
 
-		[DataMember(IsRequired =true)]
+		[DataMember(IsRequired = true)]
 		public string RequiredName { get; set; }
 
 		[DataMember()]
 		public string Text { get; set; }
+	}
+
+	/// <summary>
+	/// 
+	/// </summary>
+	[DataContract(Namespace = Constants.DataNamespace)]
+	public class BigNumbers
+	{
+		[DataMember]
+		public long Signed64 { get; set; }
+
+		[DataMember]
+		public ulong Unsigned64 { get; set; }
+
+		[DataMember]
+		public Int128 Signed128 { get; set; }
+
+		[DataMember]
+		public UInt128 Unsigned128 { get; set; }
+
+		[DataMember()]
+		public BigInteger BigInt { get; set; }
 	}
 
 }

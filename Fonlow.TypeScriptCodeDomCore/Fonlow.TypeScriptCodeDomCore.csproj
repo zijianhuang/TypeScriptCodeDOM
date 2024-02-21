@@ -4,14 +4,14 @@
 		<TargetFramework>net7.0</TargetFramework>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<Authors>Zijian Huang</Authors>
-		<Company />
+		<Company>Fonlow</Company>
 		<Product>Fonlow TypeScript CodeDOM for .NET Core</Product>
 		<Copyright>Copyright © Zijian Huang 2015-2024</Copyright>
 		<Description>TypeScript CodeDOM</Description>
 		<PackageLicenseUrl></PackageLicenseUrl>
 		<PackageProjectUrl>https://github.com/zijianhuang/TypeScriptCodeDOM</PackageProjectUrl>
 		<PackageTags>TypeScript,Code DOM</PackageTags>
-		<PackageReleaseNotes>More CodeDOM classes supported to maximize the intersection of CodeDOM and TypeScript language features.</PackageReleaseNotes>
+		<PackageReleaseNotes>Good supports for integral numbers larger than 53bit, as well as .NET integral types of 64bit, 128bit and BigInteger.</PackageReleaseNotes>
 		<NeutralLanguage>en</NeutralLanguage>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<Version>3.2</Version>

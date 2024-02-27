@@ -14,7 +14,7 @@
 		<PackageReleaseNotes>Good supports for integral numbers larger than 53bit, as well as .NET integral types of 64bit, 128bit and BigInteger.</PackageReleaseNotes>
 		<NeutralLanguage>en</NeutralLanguage>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<Version>3.2</Version>
+		<Version>3.2.1</Version>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryUrl>https://github.com/zijianhuang/TypeScriptCodeDOM</RepositoryUrl>
 		<PackageIcon>TypeScriptCodeDOM64.png</PackageIcon>

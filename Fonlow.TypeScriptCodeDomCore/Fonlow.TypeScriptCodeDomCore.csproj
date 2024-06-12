@@ -18,7 +18,7 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryUrl>https://github.com/zijianhuang/TypeScriptCodeDOM</RepositoryUrl>
 		<PackageIcon>TypeScriptCodeDOM64.png</PackageIcon>
-		<PackageReadmeFile>Readme.md</PackageReadmeFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<NoWarn>1701;1702;1705;1591</NoWarn>
 	</PropertyGroup>
 
@@ -48,7 +48,7 @@
 		<Compile Update="TypeScriptCodeProvider.cs">
 			<SubType>Component</SubType>
 		</Compile>
-		<None Include="..\Readme.md" Pack="true" PackagePath="\" />
+		<None Include="..\README.md" Pack="true" PackagePath="\" />
 		<None Include="TypeScriptCodeDOM64.png" Pack="true" PackagePath="\" />
 	</ItemGroup>
 

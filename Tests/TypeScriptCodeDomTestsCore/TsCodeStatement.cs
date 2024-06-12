@@ -20,7 +20,7 @@ namespace TypeScriptCodeDomTests
 				provider.GenerateCodeFromStatement(e, w, o);
 			}
 			var s = builder.ToString();
-			Assert.Equal(expected, s);
+			Assert.Equal(expected, s, ignoreLineEndingDifferences: true);
 		}
 
 		[Fact]

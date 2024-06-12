@@ -1,0 +1,1 @@
+﻿dotnet build TypeScriptCodeDOM.sln  --configuration Release --no-incremental

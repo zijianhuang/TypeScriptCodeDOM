@@ -60,7 +60,7 @@ namespace Fonlow.TypeScriptCodeDom
 
 		internal static bool IsValidTypeForDerivation(CodeTypeReference type)
 		{
-			return !type.BaseType.Equals(typeNameOfObject);
+			return type.BaseType != typeNameOfObject;
 		}
 
 		/// <summary>
@@ -70,10 +70,7 @@ namespace Fonlow.TypeScriptCodeDom
 		/// <returns></returns>
 		public static bool IsSimpleSystemType(string typeFullName)
 		{
-			if (typeFullName == null)
-			{
-				throw new ArgumentNullException(nameof(typeFullName));
-			}
+			ArgumentNullException.ThrowIfNull(typeFullName);
 
 			return typeMap.ContainsKey(typeFullName);
 		}
@@ -86,8 +83,7 @@ namespace Fonlow.TypeScriptCodeDom
 		/// <exception cref="ArgumentNullException"></exception>
 		public static string MapToTsBasicType(Type type)
 		{
-			if (type == null)
-				throw new ArgumentNullException(nameof(type));
+			ArgumentNullException.ThrowIfNull(type);
 
 			if (String.IsNullOrEmpty(type.FullName)) //Custom generic type has fullname empty at this point, since it is just a template defined in the assembly.
 			{

@@ -1033,7 +1033,7 @@ https://angular.io/guide/dependency-injection-in-action
 
 			if (codeRegionDirective.RegionMode == CodeRegionMode.Start)
 			{
-				w.WriteLine($"\r\n// #region {codeRegionDirective.RegionText}");
+				w.WriteLine($"{Environment.NewLine}// #region {codeRegionDirective.RegionText}");
 			}
 			else
 			{
@@ -1125,12 +1125,14 @@ https://angular.io/guide/dependency-injection-in-action
 			}
 		}
 
-		string IndentLines(string s, string indent)
+		readonly string[] lineEnds = new string[] { "\r\n", "\n", "\r" };
+
+        string IndentLines(string s, string indent)
 		{
 			if (String.IsNullOrEmpty(s))
 				return String.Empty;
 
-			var lines = s.Split(new string[] { Environment.NewLine, "\n", "\r" }, StringSplitOptions.None);
+			var lines = s.Split(lineEnds, StringSplitOptions.None);
 			var indentedLines = lines.Select(d => indent + d);
 			var ss = String.Join(Environment.NewLine, indentedLines);
 			return ss;

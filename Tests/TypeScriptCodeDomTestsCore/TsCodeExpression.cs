@@ -22,7 +22,7 @@ namespace TypeScriptCodeDomTests
                 var provider = new TypeScriptCodeProvider(new TsCodeGenerator(new CodeObjectHelper(false)));
                 provider.GenerateCodeFromExpression(e, w, o);
             }
-            Assert.Equal("myParameterName", builder.ToString());
+            Assert.Equal("myParameterName", builder.ToString(), ignoreLineEndingDifferences:true);
         }
 
         static void TestCodeExpression(CodeExpression e, string expected)

@@ -19,7 +19,7 @@ namespace TypeScriptCodeDomTests
 				gen.GenerateCodeFromType(e, textWriter, options);
 			}
 			var s = builder.ToString();
-			Assert.Equal(expected, s);
+			Assert.Equal(expected, s, ignoreLineEndingDifferences: true);
 		}
 
 		[Fact]

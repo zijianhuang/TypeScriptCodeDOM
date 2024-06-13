@@ -51,29 +51,29 @@ namespace Fonlow.TypeScriptCodeDom
 			return generator.CreateEscapedIdentifier(value);
 		}
 
-		public override void GenerateCodeFromCompileUnit(CodeCompileUnit e, TextWriter w, CodeGeneratorOptions o)
+		public override void GenerateCodeFromCompileUnit(CodeCompileUnit compileUnit, TextWriter writer, CodeGeneratorOptions options)
 		{
-			generator.GenerateCodeFromCompileUnit(e, w, o);
+			generator.GenerateCodeFromCompileUnit(compileUnit, writer, options);
 		}
 
-		public override void GenerateCodeFromExpression(CodeExpression e, TextWriter w, CodeGeneratorOptions o)
+		public override void GenerateCodeFromExpression(CodeExpression expression, TextWriter writer, CodeGeneratorOptions options)
 		{
-			generator.GenerateCodeFromExpression(e, w, o);
+			generator.GenerateCodeFromExpression(expression, writer, options);
 		}
 
-		public override void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o)
+		public override void GenerateCodeFromNamespace(CodeNamespace codeNamespace, TextWriter writer, CodeGeneratorOptions options)
 		{
-			generator.GenerateCodeFromNamespace(e, w, o);
+			generator.GenerateCodeFromNamespace(codeNamespace, writer, options);
 		}
 
-		public override void GenerateCodeFromStatement(CodeStatement e, TextWriter w, CodeGeneratorOptions o)
+		public override void GenerateCodeFromStatement(CodeStatement statement, TextWriter writer, CodeGeneratorOptions options)
 		{
-			generator.GenerateCodeFromStatement(e, w, o);
+			generator.GenerateCodeFromStatement(statement, writer, options);
 		}
 
-		public override void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
+		public override void GenerateCodeFromType(CodeTypeDeclaration codeType, TextWriter writer, CodeGeneratorOptions options)
 		{
-			generator.GenerateCodeFromType(e, w, o);
+			generator.GenerateCodeFromType(codeType, writer, options);
 		}
 
 		public override string GetTypeOutput(CodeTypeReference type)
@@ -87,9 +87,9 @@ namespace Fonlow.TypeScriptCodeDom
 		}
 
 
-		public override bool Supports(GeneratorSupport supports)
+		public override bool Supports(GeneratorSupport generatorSupport)
 		{
-			return generator.Supports(supports);
+			return generator.Supports(generatorSupport);
 		}
 
 		/// <summary>

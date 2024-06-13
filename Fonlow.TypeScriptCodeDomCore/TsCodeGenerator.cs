@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Fonlow.TypeScriptCodeDom
 {
-	public class TsCodeGenerator : ICodeGenerator
+	public sealed class TsCodeGenerator : ICodeGenerator
 	{
 		public TsCodeGenerator(CodeObjectHelper codeObjectHelper)
 		{

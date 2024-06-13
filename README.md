@@ -7,7 +7,7 @@ While JSCriptCodeProvider is good enough for generating JavaScript codes for Int
 1. Strongly typed interfaces and function prototypes for validation during design time and compile time.
 1. Re-use some portions of CodeDOM codes if a code generator toolset like [WebApiClientGen](https://github.com/zijianhuang/webapiclientgen) and [OpenApiClientGen](https://github.com/zijianhuang/openapiclientgen) targets multiple OO languages and multiple TypeScript libraries/frameworks.
 1. Naturally and inheriently adapt the evolution of the JavaScript standard as long as TypeScript will.
-1. Live well with TypeScript frameworks like Angular 2+ and Auralia. And with Angular Reactive Forms, [runtime validation](https://github.com/zijianhuang/webapiclientgen/wiki/Angular-Reactive-Forms) could become possible, similar to the use cases of using [validation attributes to decorate a member property of a .NET class](https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations).
+1. Live well with TypeScript frameworks like Angular 2+ and Aurelia. And with Angular Reactive Forms, [runtime validation](https://github.com/zijianhuang/webapiclientgen/wiki/Angular-Reactive-Forms) could become possible, similar to the use cases of using [validation attributes to decorate a member property of a .NET class](https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations).
 
 Nuget package:
 
@@ -19,7 +19,7 @@ Nuget package:
 
 TypeScript CodeDOM is for code generators that use CodeDOM over template or Roslyn, for example, Fonlow.Poco2TS that reads an assembly with POCO classes, and WebApiClientGen that reads assemblies and the run time type info of a running Web API, and then create Code DOM that could be used to generate C# and TypeScript codes.
 
-There are scenarios that Roslyn and template may provide more powerful features that you want and help you to write less codes with simplier design when developing the code generators.
+There are scenarios that Roslyn and template may provide more powerful features that you want and help you to write less codes with simpler design when developing the code generators.
 
 ## What Supported and Not
 
@@ -162,7 +162,7 @@ Most supported classes are covered by unit testing, while some are covered by in
 
 ## History
 
-TypeScript CodeDOM had been a by-product of [Strongly Typed Web API Client Generators](https://github.com/zijianhuang/webapiclientgen) since October 2015 until Feburary 2024, as a foundation library of TypeScript code generators of WebApiClientGen and then OpenApiClientGen, as well as internal code generators in some companies in whcih the devlopment teams have chosen the CodeDOM approach over templates.
+TypeScript CodeDOM had been a by-product of [Strongly Typed Web API Client Generators](https://github.com/zijianhuang/webapiclientgen) since October 2015 until February 2024, as a foundation library of TypeScript code generators of WebApiClientGen and then OpenApiClientGen, as well as internal code generators in some companies in which the development teams have chosen the CodeDOM approach over templates.
 
 Legacy repositories:
 * [Fonlow.TypeScriptCodeDom](https://github.com/zijianhuang/webapiclientgen/tree/LastCore31/Fonlow.TypeScriptCodeDomShared) for .NET Framework and [its Nuget package](https://www.nuget.org/packages/Fonlow.TypeScriptCodeDOM).

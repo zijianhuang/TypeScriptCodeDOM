@@ -13,7 +13,7 @@ Nuget package:
 
 * [Fonlow.TypeScriptCodeDomCore](https://www.nuget.org/packages/Fonlow.TypeScriptCodeDomCore)
 
-![TypeScript CodeDOM logo](/Fonlow.TypeScriptCodeDomCore/TypeScriptCodeDOM64.png)
+![TypeScript CodeDOM logo](./Fonlow.TypeScriptCodeDomCore/TypeScriptCodeDOM64.png)
 
 ## What For and Not
 

@@ -273,8 +273,9 @@ namespace TypeScriptCodeDomTests
 				TypeAttributes = System.Reflection.TypeAttributes.NotPublic
 			};
 			newType.Members.Add(new CodeMemberField("string", "name"));
-			var m = new CodeMemberMethod() { 
-				Name="doSomething",
+			var m = new CodeMemberMethod()
+			{
+				Name = "doSomething",
 				ReturnType = new CodeTypeReference("System.Int32"),
 			};
 
@@ -292,6 +293,42 @@ namespace TypeScriptCodeDomTests
 		name: string;
 		@enumerable(false)
 		doSomething(@required pp: number): number {
+		}
+	}
+");
+
+		}
+
+		[Fact]
+		public void TestCodeTypeDeclarationWithMethodAndParameterDecoratorsWithParameters()
+		{
+			CodeTypeDeclaration newType = new CodeTypeDeclaration("TestType")
+			{
+				TypeAttributes = System.Reflection.TypeAttributes.NotPublic
+			};
+			newType.Members.Add(new CodeMemberField("string", "name"));
+			var m = new CodeMemberMethod()
+			{
+				Name = "doSomething",
+				ReturnType = new CodeTypeReference("System.Int32"),
+			};
+
+			var mp = new CodeParameterDeclarationExpression("System.Int32", "pp");
+			var atr = new CodeAttributeDeclaration("validParam");
+			atr.Arguments.Add(new CodeAttributeArgument(new CodeSnippetExpression("'Something'")));
+			mp.CustomAttributes.Add(atr);
+			m.Parameters.Add(mp);
+
+			var newAtr = new CodeAttributeDeclaration("enumerable");
+			newAtr.Arguments.Add(new CodeAttributeArgument(new CodeSnippetExpression("false")));
+			m.CustomAttributes.Add(newAtr);
+
+			newType.Members.Add(m);
+			AssertCodeTypeDeclaration(newType,
+@"	class TestType {
+		name: string;
+		@enumerable(false)
+		doSomething(@validParam('Something') pp: number): number {
 		}
 	}
 ");

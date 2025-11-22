@@ -140,15 +140,19 @@ https://angular.io/guide/dependency-injection-in-action
 		/// <param name="e"></param>
 		/// <param name="w"></param>
 		/// <param name="o"></param>
-		/// <exception cref="ArgumentException"></exception>
-		static void GenerateCodeFromAttributeDeclarationForParameter(CodeAttributeDeclaration e, TextWriter w, CodeGeneratorOptions o)
+		/// <example>
+		/// doSomething(@validParam('Something') pp: number): number {
+		/// </example>
+		void GenerateCodeFromAttributeDeclarationForParameter(CodeAttributeDeclaration e, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (e.Arguments.Count > 0)
 			{
-				throw new ArgumentException("GenerateCodeFromAttributeDeclarationForParameter should not have arguments", nameof(e));
-
+				GenerateCodeFromAttributeDeclaration(e, w, o, false);
 			}
-			w.Write($"@{e.Name} ");
+			else
+			{
+				w.Write($"@{e.Name} ");
+			}
 		}
 
 		/// <summary>
@@ -172,7 +176,14 @@ https://angular.io/guide/dependency-injection-in-action
 				}
 			}
 
-			w.WriteLine(")");
+			if (indent)
+			{
+				w.WriteLine(")");
+			}
+			else
+			{
+				w.Write(") ");
+			}
 		}
 
 		protected void GenerateCodeFromAttributeDeclarationCollectionForClass(CodeAttributeDeclarationCollection e, TextWriter w, CodeGeneratorOptions o)
@@ -186,7 +197,7 @@ https://angular.io/guide/dependency-injection-in-action
 			}
 		}
 
-		protected static void GenerateCodeFromAttributeDeclarationCollectionForParameter(CodeAttributeDeclarationCollection e, TextWriter w, CodeGeneratorOptions o)
+		protected void GenerateCodeFromAttributeDeclarationCollectionForParameter(CodeAttributeDeclarationCollection e, TextWriter w, CodeGeneratorOptions o)
 		{
 			if (e.Count == 0)
 				return;
@@ -845,7 +856,7 @@ https://angular.io/guide/dependency-injection-in-action
 			o.IndentString = currentIndent;
 		}
 
-		static void WriteCodeParameterDeclarationExpressionCollection(CodeParameterDeclarationExpressionCollection parameterDeclarations, TextWriter w, CodeGeneratorOptions o)
+		void WriteCodeParameterDeclarationExpressionCollection(CodeParameterDeclarationExpressionCollection parameterDeclarations, TextWriter w, CodeGeneratorOptions o)
 		{
 			var pairs = parameterDeclarations.OfType<CodeParameterDeclarationExpression>()
 				.Select(d =>

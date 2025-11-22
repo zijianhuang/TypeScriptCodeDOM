@@ -169,6 +169,32 @@ namespace TypeScriptCodeDomTests
 ");
 		}
 
+		[Fact]
+		public void TestCodeTypeDeclarationWithMembersAndInjectableStandalone()
+		{
+			CodeTypeDeclaration newType = new CodeTypeDeclaration("TestType")
+			{
+				TypeAttributes = System.Reflection.TypeAttributes.NotPublic
+			};
+			newType.Members.Add(new CodeMemberField("string", "name"));
+			//var targetClass = new CodeTypeDeclaration("Injectable")
+			//{
+			//	TypeAttributes = TypeAttributes.Public | TypeAttributes.Interface, //setting IsInterface has no use
+			//};
+
+			var c = new CodeTypeReference("Injectable");
+			c.UserData.Add("TsTypeInfo", new TsTypeInfo { TypeOfType = TypeOfType.IsInterface });
+			var atr = new CodeAttributeDeclaration(c);
+			atr.Arguments.Add(new CodeAttributeArgument(new CodeSnippetExpression("{ providedIn: 'root' }")));
+			newType.CustomAttributes.Add(atr);
+			AssertCodeTypeDeclaration(newType,
+@"	@Injectable({ providedIn: 'root' })
+	class TestType {
+		name: string;
+	}
+");
+		}
+
 		/// <summary>
 		/// TypeScript disallows decorating both the get and set accessor for a single member. 
 		/// Instead, all decorators for the member must be applied to the first accessor specified in document order. 

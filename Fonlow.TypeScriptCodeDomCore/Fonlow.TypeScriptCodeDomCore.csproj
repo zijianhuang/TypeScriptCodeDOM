@@ -11,7 +11,7 @@
 		<PackageLicenseUrl></PackageLicenseUrl>
 		<PackageProjectUrl>https://github.com/zijianhuang/TypeScriptCodeDOM</PackageProjectUrl>
 		<PackageTags>TypeScript,Code DOM</PackageTags>
-		<PackageReleaseNotes>.NET 9</PackageReleaseNotes>
+		<PackageReleaseNotes>.NET 10</PackageReleaseNotes>
 		<NeutralLanguage>en</NeutralLanguage>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<Version>3.6</Version>

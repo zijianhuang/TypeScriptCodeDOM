@@ -58,9 +58,9 @@ namespace Fonlow.TypeScriptCodeDom
 
 		static readonly string typeNameOfObject = typeof(object).FullName;
 
-		internal static bool IsValidTypeForDerivation(CodeTypeReference type)
+		internal static bool IsValidTypeForDerivation(CodeTypeReference ctr)
 		{
-			return type.BaseType != typeNameOfObject;
+			return ctr.BaseType != typeNameOfObject;
 		}
 
 		/// <summary>

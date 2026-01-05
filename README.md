@@ -3,10 +3,10 @@
 1. [VBCodeProvider](https://learn.microsoft.com/en-us/dotnet/api/microsoft.visualbasic.vbcodeprovider?view=dotnet-plat-ext-8.0)
 1. [JScriptCodeProvider](https://learn.microsoft.com/en-us/dotnet/api/microsoft.jscript.jscriptcodeprovider?view=dotnet-plat-ext-8.0)
 
-While JSCriptCodeProvider is good enough for generating JavaScript codes for Internet Explorer however IE had been discoutinued. TypeScriptCodeProvider provides extra benefits over a "JavaScript Provider" through generating TypeScript codes:
+While JSCriptCodeProvider is good enough for generating JavaScript codes for Internet Explorer however IE had been discontinued. TypeScriptCodeProvider provides extra benefits over "JavaScript Provider" through generating TypeScript codes:
 1. Strongly typed interfaces and function prototypes for validation during design time and compile time.
-1. Re-use some portions of CodeDOM codes if a code generator toolset like [WebApiClientGen](https://github.com/zijianhuang/webapiclientgen) and [OpenApiClientGen](https://github.com/zijianhuang/openapiclientgen) targets multiple OO languages and multiple TypeScript libraries/frameworks.
-1. Naturally and inheriently adapt the evolution of the JavaScript standard as long as TypeScript will.
+1. Re-use some portions of CodeDOM codes and syntax tree if a code generator toolset like [WebApiClientGen](https://github.com/zijianhuang/webapiclientgen) and [OpenApiClientGen](https://github.com/zijianhuang/openapiclientgen) targets multiple OO languages and multiple TypeScript libraries/frameworks.
+1. Naturally and inherently adapt the evolution of the JavaScript standard as long as TypeScript will.
 1. Live well with TypeScript frameworks like Angular 2+ and Aurelia. And with Angular Reactive Forms, [runtime validation](https://github.com/zijianhuang/webapiclientgen/wiki/Angular-Reactive-Forms) could become possible, similar to the use cases of using [validation attributes to decorate a member property of a .NET class](https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations).
 
 Nuget package:
@@ -17,7 +17,7 @@ Nuget package:
 
 ## What For and Not
 
-TypeScript CodeDOM is for code generators that use CodeDOM over template or Roslyn, for example, Fonlow.Poco2TS that reads an assembly with POCO classes, and WebApiClientGen that reads assemblies and the run time type info of a running Web API, and then create Code DOM that could be used to generate C# and TypeScript codes.
+TypeScript CodeDOM is for code generators that use CodeDOM over template, for example, Fonlow.Poco2TS that reads an assembly with POCO classes, and WebApiClientGen that reads assemblies and the run time type info of a running Web API, and then create Code DOM that could be used to generate C# and TypeScript codes.
 
 There are scenarios that Roslyn and template may provide more powerful features that you want and help you to write less codes with simpler design when developing the code generators.
 

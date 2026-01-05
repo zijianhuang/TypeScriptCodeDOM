@@ -29,26 +29,26 @@ namespace Fonlow.TypeScriptCodeDom
 		/// <summary>
 		/// Generate code from CodeNamespace.
 		/// </summary>
-		/// <param name="e"></param>
+		/// <param name="cn"></param>
 		/// <param name="w"></param>
 		/// <param name="o"></param>
-		public virtual void GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o)
+		public virtual void GenerateCodeFromNamespace(CodeNamespace cn, TextWriter w, CodeGeneratorOptions o)
 		{
-			WriteCodeCommentStatementCollection(e.Comments, w, o);
+			WriteCodeCommentStatementCollection(cn.Comments, w, o);
 
-			var refinedNamespaceText = e.Name.Replace('.', '_');
+			var refinedNamespaceText = cn.Name.Replace('.', '_');
 			var namespaceOrModule = asModule ? "export namespace" : "namespace";
 			w.WriteLine($"{namespaceOrModule} {refinedNamespaceText} {{");
 
-			for (int i = 0; i < e.Imports.Count; i++)
+			for (int i = 0; i < cn.Imports.Count; i++)
 			{
-				var ns = e.Imports[i];
+				var ns = cn.Imports[i];
 				var nsText = ns.Namespace;
 				var alias = nsText.Replace('.', '_');
 				w.WriteLine($"{o.IndentString}import {alias} = {nsText};");
 			}
 
-			e.Types.OfType<CodeTypeDeclaration>().ToList().ForEach(t =>
+			cn.Types.OfType<CodeTypeDeclaration>().ToList().ForEach(t =>
 			{
 				WriteCodeRegionDirectives(t.StartDirectives, w);
 				GenerateCodeFromType(t, w, o);
@@ -62,16 +62,16 @@ namespace Fonlow.TypeScriptCodeDom
 		/// <summary>
 		/// Generate TS interface from CodeTypeDeclaration.
 		/// </summary>
-		/// <param name="e"></param>
+		/// <param name="ctd"></param>
 		/// <param name="w"></param>
 		/// <param name="o"></param>
-		public void GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
+		public void GenerateCodeFromType(CodeTypeDeclaration ctd, TextWriter w, CodeGeneratorOptions o)
 		{
-			WriteCodeCommentStatementCollection(e.Comments, w, o);
+			WriteCodeCommentStatementCollection(ctd.Comments, w, o);
 
-			GenerateCodeFromAttributeDeclarationCollectionForClass(e.CustomAttributes, w, o);
+			GenerateCodeFromAttributeDeclarationCollectionForClass(ctd.CustomAttributes, w, o);
 
-			if (e is CodeTypeDelegate codeTypeDelegate)
+			if (ctd is CodeTypeDelegate codeTypeDelegate)
 			{
 				w.Write($"{o.IndentString}export type {codeTypeDelegate.Name} = (");
 				WriteCodeParameterDeclarationExpressionCollection(codeTypeDelegate.Parameters, w, o);
@@ -80,13 +80,13 @@ namespace Fonlow.TypeScriptCodeDom
 				return;
 			}
 
-			var accessModifier = ((e.TypeAttributes & System.Reflection.TypeAttributes.Public) == System.Reflection.TypeAttributes.Public) ? "export " : String.Empty;
-			var typeOfTypeText = GetTypeOfTypeText(e);
-			var name = e.Name;
-			var typeParametersExpression = GetTypeParametersExpression(e);
-			var baseTypesExpression = GetBaseTypeExpression(e);
+			var accessModifier = ((ctd.TypeAttributes & System.Reflection.TypeAttributes.Public) == System.Reflection.TypeAttributes.Public) ? "export " : String.Empty;
+			var typeOfTypeText = GetTypeOfTypeText(ctd);
+			var name = ctd.Name;
+			var typeParametersExpression = GetTypeParametersExpression(ctd);
+			var baseTypesExpression = GetBaseTypeExpression(ctd);
 			w.Write($"{o.IndentString}{accessModifier}{typeOfTypeText} {name}{typeParametersExpression}{baseTypesExpression} {{");
-			WriteTypeMembersAndCloseBracing(e, w, o);
+			WriteTypeMembersAndCloseBracing(ctd, w, o);
 		}
 
 		/* Injectable directive in Angular
@@ -112,7 +112,7 @@ https://angular.io/guide/dependency-injection-in-action
 		/// Matching https://www.typescriptlang.org/docs/handbook/decorators.html
 		/// However, if e.AttributeType.UserData["TsTypeInfo"] as TsTypeInfo indicates IsInterface, the output will include ()
 		/// </summary>
-		/// <param name="e"></param>
+		/// <param name="cad"></param>
 		/// <param name="w"></param>
 		/// <param name="o"></param>
 		/// <example>
@@ -120,38 +120,38 @@ https://angular.io/guide/dependency-injection-in-action
 		/// class TestType
 		/// or @Injectable()
 		/// </example>
-		void GenerateCodeFromAttributeDeclarationForClass(CodeAttributeDeclaration e, TextWriter w, CodeGeneratorOptions o)
+		void GenerateCodeFromAttributeDeclarationForClass(CodeAttributeDeclaration cad, TextWriter w, CodeGeneratorOptions o)
 		{
-			var tsTypeInfo = e.AttributeType.UserData[UserDataKeys.TsTypeInfo] as TsTypeInfo;
+			var tsTypeInfo = cad.AttributeType.UserData[UserDataKeys.TsTypeInfo] as TsTypeInfo;
 			bool isInterface = tsTypeInfo != null && tsTypeInfo.TypeOfType == TypeOfType.IsInterface;
 			if (isInterface)
 			{
-				GenerateCodeFromAttributeDeclaration(e, w, o);
+				GenerateCodeFromAttributeDeclaration(cad, w, o);
 			}
 			else
 			{
-				w.WriteLine($"{o.IndentString}@{e.Name}");
+				w.WriteLine($"{o.IndentString}@{cad.Name}");
 			}
 		}
 
 		/// <summary>
 		/// Generate decorator for parameter from CodeAttributeDeclaration.
 		/// </summary>
-		/// <param name="e"></param>
+		/// <param name="cad"></param>
 		/// <param name="w"></param>
 		/// <param name="o"></param>
 		/// <example>
 		/// doSomething(@validParam('Something') pp: number): number {
 		/// </example>
-		void GenerateCodeFromAttributeDeclarationForParameter(CodeAttributeDeclaration e, TextWriter w, CodeGeneratorOptions o)
+		void GenerateCodeFromAttributeDeclarationForParameter(CodeAttributeDeclaration cad, TextWriter w, CodeGeneratorOptions o)
 		{
-			if (e.Arguments.Count > 0)
+			if (cad.Arguments.Count > 0)
 			{
-				GenerateCodeFromAttributeDeclaration(e, w, o, false);
+				GenerateCodeFromAttributeDeclaration(cad, w, o, false);
 			}
 			else
 			{
-				w.Write($"@{e.Name} ");
+				w.Write($"@{cad.Name} ");
 			}
 		}
 
@@ -159,18 +159,18 @@ https://angular.io/guide/dependency-injection-in-action
 		/// Generate decorator with optional arguments for method, property, accessor. Therefore, always with (...).
 		/// Matching https://www.typescriptlang.org/docs/handbook/decorators.html
 		/// </summary>
-		/// <param name="e"></param>
+		/// <param name="cad"></param>
 		/// <param name="w"></param>
 		/// <param name="o"></param>
 		/// <param name="indent"></param>
-		void GenerateCodeFromAttributeDeclaration(CodeAttributeDeclaration e, TextWriter w, CodeGeneratorOptions o, bool indent = true)
+		void GenerateCodeFromAttributeDeclaration(CodeAttributeDeclaration cad, TextWriter w, CodeGeneratorOptions o, bool indent = true)
 		{
 			var indentText = indent ? o.IndentString : string.Empty;
-			w.Write($"{indentText}@{e.Name}(");
-			for (int i = 0; i < e.Arguments.Count; i++)
+			w.Write($"{indentText}@{cad.Name}(");
+			for (int i = 0; i < cad.Arguments.Count; i++)
 			{
-				GenerateCodeFromExpression(e.Arguments[i].Value, w, o);
-				if (i < e.Arguments.Count - 1)
+				GenerateCodeFromExpression(cad.Arguments[i].Value, w, o);
+				if (i < cad.Arguments.Count - 1)
 				{
 					w.Write(", ");
 				}
@@ -186,143 +186,143 @@ https://angular.io/guide/dependency-injection-in-action
 			}
 		}
 
-		protected void GenerateCodeFromAttributeDeclarationCollectionForClass(CodeAttributeDeclarationCollection e, TextWriter w, CodeGeneratorOptions o)
+		protected void GenerateCodeFromAttributeDeclarationCollectionForClass(CodeAttributeDeclarationCollection cadc, TextWriter w, CodeGeneratorOptions o)
 		{
-			if (e.Count == 0)
+			if (cadc.Count == 0)
 				return;
 
-			for (int i = 0; i < e.Count; i++)
+			for (int i = 0; i < cadc.Count; i++)
 			{
-				GenerateCodeFromAttributeDeclarationForClass(e[i], w, o);
+				GenerateCodeFromAttributeDeclarationForClass(cadc[i], w, o);
 			}
 		}
 
-		protected void GenerateCodeFromAttributeDeclarationCollectionForParameter(CodeAttributeDeclarationCollection e, TextWriter w, CodeGeneratorOptions o)
+		protected void GenerateCodeFromAttributeDeclarationCollectionForParameter(CodeAttributeDeclarationCollection cadc, TextWriter w, CodeGeneratorOptions o)
 		{
-			if (e.Count == 0)
+			if (cadc.Count == 0)
 				return;
 
-			for (int i = 0; i < e.Count; i++)
+			for (int i = 0; i < cadc.Count; i++)
 			{
-				GenerateCodeFromAttributeDeclarationForParameter(e[i], w, o);
+				GenerateCodeFromAttributeDeclarationForParameter(cadc[i], w, o);
 			}
 		}
 
-		protected void GenerateCodeFromAttributeDeclarationCollection(CodeAttributeDeclarationCollection e, TextWriter w, CodeGeneratorOptions o)
+		protected void GenerateCodeFromAttributeDeclarationCollection(CodeAttributeDeclarationCollection cadc, TextWriter w, CodeGeneratorOptions o)
 		{
-			if (e.Count == 0)
+			if (cadc.Count == 0)
 				return;
 
-			for (int i = 0; i < e.Count; i++)
+			for (int i = 0; i < cadc.Count; i++)
 			{
-				GenerateCodeFromAttributeDeclaration(e[i], w, o);
+				GenerateCodeFromAttributeDeclaration(cadc[i], w, o);
 			}
 		}
 
-		internal void GenerateCodeFromExpression(CodeExpression e, TextWriter w, CodeGeneratorOptions o)
+		internal void GenerateCodeFromExpression(CodeExpression ce, TextWriter w, CodeGeneratorOptions o)
 		{
-			if (e == null)
+			if (ce == null)
 				return;
 
-			if (e is CodeArgumentReferenceExpression argumentReferenceExpression)
+			if (ce is CodeArgumentReferenceExpression argumentReferenceExpression)
 			{
 				w.Write(argumentReferenceExpression.ParameterName);
 				return;
 			}
 
-			if (WriteCodeArrayCreateExpression(e as CodeArrayCreateExpression, w, o))
+			if (WriteCodeArrayCreateExpression(ce as CodeArrayCreateExpression, w, o))
 				return;
 
-			if (WriteCodeArrayIndexerExpression(e as CodeArrayIndexerExpression, w, o))
+			if (WriteCodeArrayIndexerExpression(ce as CodeArrayIndexerExpression, w, o))
 				return;
 
-			if (e is CodeBaseReferenceExpression)
+			if (ce is CodeBaseReferenceExpression)
 			{
 				w.Write("super");
 				return;
 			}
 
-			if (WriteCodeCastExpression(e as CodeCastExpression, w, o))
+			if (WriteCodeCastExpression(ce as CodeCastExpression, w, o))
 				return;
 
-			if (WriteCodeBinaryOperatorExpression(e as CodeBinaryOperatorExpression, w, o))
+			if (WriteCodeBinaryOperatorExpression(ce as CodeBinaryOperatorExpression, w, o))
 				return;
 
-			if (WriteCodeFieldReferenceExpression(e as CodeFieldReferenceExpression, w, o))
+			if (WriteCodeFieldReferenceExpression(ce as CodeFieldReferenceExpression, w, o))
 				return;
 
-			if (WriteCodeIndexerExpression(e as CodeIndexerExpression, w, o))
+			if (WriteCodeIndexerExpression(ce as CodeIndexerExpression, w, o))
 				return;
 
-			if (WriteCodeMethodInvokeExpression(e as CodeMethodInvokeExpression, w, o))
+			if (WriteCodeMethodInvokeExpression(ce as CodeMethodInvokeExpression, w, o))
 				return;
 
 
-			if (e is CodeMethodReferenceExpression methodReferenceExpression)
+			if (ce is CodeMethodReferenceExpression methodReferenceExpression)
 			{
 				WriteCodeMethodReferenceExpression(methodReferenceExpression, w, o);
 				return;
 			}
 
-			if (WriteCodeObjectCreateExpression(e as CodeObjectCreateExpression, w, o))
+			if (WriteCodeObjectCreateExpression(ce as CodeObjectCreateExpression, w, o))
 				return;
 
-			if (e is CodeParameterDeclarationExpression parameterDeclarationExpression)
+			if (ce is CodeParameterDeclarationExpression parameterDeclarationExpression)
 			{
 				w.Write($"{parameterDeclarationExpression.Name}: {GetCodeTypeReferenceText(parameterDeclarationExpression.Type)}");
 				return;
 			}
 
-			if (WriteCodePrimitiveExpression(e as CodePrimitiveExpression, w))
+			if (WriteCodePrimitiveExpression(ce as CodePrimitiveExpression, w))
 				return;
 
 
-			if (WriteCodePropertyReferenceExpression(e as CodePropertyReferenceExpression, w, o))
+			if (WriteCodePropertyReferenceExpression(ce as CodePropertyReferenceExpression, w, o))
 				return;
 
-			if (e is CodeSnippetExpression snippetExpression)
+			if (ce is CodeSnippetExpression snippetExpression)
 			{
 				w.Write(snippetExpression.Value);
 				return;
 			}
 
-			if (e is CodeThisReferenceExpression)
+			if (ce is CodeThisReferenceExpression)
 			{
 				w.Write("this");
 				return;
 			}
 
-			if (e is CodeTypeOfExpression typeOfExpression)
+			if (ce is CodeTypeOfExpression typeOfExpression)
 			{
 				w.Write("typeof " + GetCodeTypeReferenceText(typeOfExpression.Type));
 				return;
 			}
 
-			if (e is CodeTypeReferenceExpression typeReferenceExpression)
+			if (ce is CodeTypeReferenceExpression typeReferenceExpression)
 			{
 				w.Write(GetCodeTypeReferenceText(typeReferenceExpression.Type));
 				return;
 			}
 
-			if (e is CodeVariableReferenceExpression variableReferenceExpression)
+			if (ce is CodeVariableReferenceExpression variableReferenceExpression)
 			{
 				w.Write(variableReferenceExpression.VariableName);
 				return;
 			}
 
-			Trace.TraceWarning($"CodeExpression not supported: {e}");
+			Trace.TraceWarning($"CodeExpression not supported: {ce}");
 		}
 
 		/// <summary>
 		/// For CodeTypeDeclaration, CodeTypeMember (field, proeprty and method), CodeStatement, 
 		/// </summary>
-		/// <param name="directives">CodeDirectiveCollection with CodeRegionDirective</param>
+		/// <param name="cdc">CodeDirectiveCollection with CodeRegionDirective</param>
 		/// <param name="w"></param>
-		static void WriteCodeRegionDirectives(CodeDirectiveCollection directives, TextWriter w)
+		static void WriteCodeRegionDirectives(CodeDirectiveCollection cdc, TextWriter w)
 		{
-			if (directives != null && directives.Count > 0)
+			if (cdc != null && cdc.Count > 0)
 			{
-				var codeRegionStartDirectives = directives.OfType<CodeRegionDirective>().ToArray();
+				var codeRegionStartDirectives = cdc.OfType<CodeRegionDirective>().ToArray();
 				foreach (var item in codeRegionStartDirectives)
 				{
 					WriteCodeRegionDirective(item, w);
@@ -330,37 +330,37 @@ https://angular.io/guide/dependency-injection-in-action
 			}
 		}
 
-		internal void GenerateCodeFromStatement(CodeStatement e, TextWriter w, CodeGeneratorOptions o)
+		internal void GenerateCodeFromStatement(CodeStatement cs, TextWriter w, CodeGeneratorOptions o)
 		{
-			if (WriteCodeAssignStatement(e as CodeAssignStatement, w, o))
+			if (WriteCodeAssignStatement(cs as CodeAssignStatement, w, o))
 				return;
 
-			if (WriteCodeCommentStatement(e as CodeCommentStatement, w, o))
+			if (WriteCodeCommentStatement(cs as CodeCommentStatement, w, o))
 				return;
 
-			if (WriteCodeConditionStatement(e as CodeConditionStatement, w, o))
+			if (WriteCodeConditionStatement(cs as CodeConditionStatement, w, o))
 				return;
 
-			if (WriteCodeExpressionStatement(e as CodeExpressionStatement, w, o))
+			if (WriteCodeExpressionStatement(cs as CodeExpressionStatement, w, o))
 				return;
 
 
-			if (WriteCodeIterationStatement(e as CodeIterationStatement, w, o))
+			if (WriteCodeIterationStatement(cs as CodeIterationStatement, w, o))
 				return;
 
-			if (WriteCodeMethodReturnStatement(e as CodeMethodReturnStatement, w, o))
+			if (WriteCodeMethodReturnStatement(cs as CodeMethodReturnStatement, w, o))
 				return;
 
-			if (WriteCodeThrowExceptionStatement(e as CodeThrowExceptionStatement, w, o))
+			if (WriteCodeThrowExceptionStatement(cs as CodeThrowExceptionStatement, w, o))
 				return;
 
-			if (WriteCodeTryCatchFinallyStatement(e as CodeTryCatchFinallyStatement, w, o))
+			if (WriteCodeTryCatchFinallyStatement(cs as CodeTryCatchFinallyStatement, w, o))
 				return;
 
-			if (WriteCodeVariableDeclarationStatement(e as CodeVariableDeclarationStatement, w, o))
+			if (WriteCodeVariableDeclarationStatement(cs as CodeVariableDeclarationStatement, w, o))
 				return;
 
-			Trace.TraceWarning($"CodeStatement not supported: {e}");
+			Trace.TraceWarning($"CodeStatement not supported: {cs}");
 		}
 
 		#endregion

@@ -23,43 +23,43 @@ namespace Fonlow.TypeScriptCodeDom
 			return KeywordHandler.CreateValidIdentifier(value);
 		}
 
-		void ICodeGenerator.GenerateCodeFromCompileUnit(CodeCompileUnit e, TextWriter w, CodeGeneratorOptions o)
+		void ICodeGenerator.GenerateCodeFromCompileUnit(CodeCompileUnit ccu, TextWriter w, CodeGeneratorOptions o)
 		{
-			for (int i = 0; i < e.ReferencedAssemblies.Count; i++)
+			for (int i = 0; i < ccu.ReferencedAssemblies.Count; i++)
 			{
-				w.WriteLine(e.ReferencedAssemblies[i]);
+				w.WriteLine(ccu.ReferencedAssemblies[i]);
 			}
 
-			for (int i = 0; i < e.Namespaces.Count; i++)
+			for (int i = 0; i < ccu.Namespaces.Count; i++)
 			{
-				(this as ICodeGenerator).GenerateCodeFromNamespace(e.Namespaces[i], w, o);
+				(this as ICodeGenerator).GenerateCodeFromNamespace(ccu.Namespaces[i], w, o);
 				w.WriteLine();
 			}
 		}
 
-		void ICodeGenerator.GenerateCodeFromExpression(CodeExpression e, TextWriter w, CodeGeneratorOptions o)
+		void ICodeGenerator.GenerateCodeFromExpression(CodeExpression ce, TextWriter w, CodeGeneratorOptions o)
 		{
-			codeObjectHelper.GenerateCodeFromExpression(e, w, o);
+			codeObjectHelper.GenerateCodeFromExpression(ce, w, o);
 		}
 
-		void ICodeGenerator.GenerateCodeFromNamespace(CodeNamespace e, TextWriter w, CodeGeneratorOptions o)
+		void ICodeGenerator.GenerateCodeFromNamespace(CodeNamespace cn, TextWriter w, CodeGeneratorOptions o)
 		{
-			codeObjectHelper.GenerateCodeFromNamespace(e, w, o);
+			codeObjectHelper.GenerateCodeFromNamespace(cn, w, o);
 		}
 
-		void ICodeGenerator.GenerateCodeFromStatement(CodeStatement e, TextWriter w, CodeGeneratorOptions o)
+		void ICodeGenerator.GenerateCodeFromStatement(CodeStatement cs, TextWriter w, CodeGeneratorOptions o)
 		{
-			codeObjectHelper.GenerateCodeFromStatement(e, w, o);
+			codeObjectHelper.GenerateCodeFromStatement(cs, w, o);
 		}
 
-		void ICodeGenerator.GenerateCodeFromType(CodeTypeDeclaration e, TextWriter w, CodeGeneratorOptions o)
+		void ICodeGenerator.GenerateCodeFromType(CodeTypeDeclaration ctd, TextWriter w, CodeGeneratorOptions o)
 		{
-			codeObjectHelper.GenerateCodeFromType(e, w, o);
+			codeObjectHelper.GenerateCodeFromType(ctd, w, o);
 		}
 
-		string ICodeGenerator.GetTypeOutput(CodeTypeReference type)
+		string ICodeGenerator.GetTypeOutput(CodeTypeReference ctr)
 		{
-			return TypeMapper.MapCodeTypeReferenceToTsText(type);
+			return TypeMapper.MapCodeTypeReferenceToTsText(ctr);
 		}
 
 		bool ICodeGenerator.IsValidIdentifier(string value)
@@ -67,9 +67,9 @@ namespace Fonlow.TypeScriptCodeDom
 			return KeywordHandler.IsValidIdentifier(value);
 		}
 
-		bool ICodeGenerator.Supports(GeneratorSupport supports)
+		bool ICodeGenerator.Supports(GeneratorSupport gs)
 		{
-			return (supports & supported) != 0;
+			return (gs & supported) != 0;
 		}
 
 		const GeneratorSupport supported = GeneratorSupport.ArraysOfArrays

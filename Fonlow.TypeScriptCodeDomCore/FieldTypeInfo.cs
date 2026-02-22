@@ -15,5 +15,10 @@ namespace Fonlow.TypeScriptCodeDom
 		/// Optional store Clr type for better mapping in code generators
 		/// </summary>
 		public Type ClrType { get; set; }
+
+		/// <summary>
+		/// Decoreated by JsonRequiredAttribute. So null or empty is fine and expected.
+		/// </summary>
+		public bool IsJsonRequired { get; set; }
 	}
 }

@@ -1223,23 +1223,35 @@ https://angular.io/guide/dependency-injection-in-action
 			return (!(member.InitExpression is CodePrimitiveExpression initExpression)) ? $"{member.Name}" : $"{member.Name} = {initExpression.Value}";
 		}
 
+		/// <summary>
+		/// Generates a TypeScript field declaration string based on the specified CodeMemberField, including the field's name
+		/// and type.
+		/// </summary>
+		/// <remarks>If the field name ends with a question mark (?), the field is treated as optional in the
+		/// TypeScript output. The method also considers complex and array types, and appends '| null' to the type for certain
+		/// optional fields to accurately reflect their nullability in TypeScript.</remarks>
+		/// <param name="codeMemberField">The CodeMemberField instance that defines the field to be represented in TypeScript, including its name and type
+		/// information.</param>
+		/// <returns>A string containing the TypeScript representation of the field, with appropriate handling for optional and
+		/// nullable types.</returns>
 		static string GetCodeMemberFieldText(CodeMemberField codeMemberField)
 		{
-			var isRequired = !codeMemberField.Name.EndsWith('?');
+			var tsTypeName = RefineFieldTypeName(codeMemberField);
+			return RefineNameAndType(codeMemberField.Name, tsTypeName);
+		}
+
+		static string RefineFieldTypeName(CodeMemberField codeMemberField)
+		{
+			var isOptional = codeMemberField.Name.EndsWith('?');
 			var fieldName = codeMemberField.Name;
 			var tsTypeName = GetCodeTypeReferenceText(codeMemberField.Type);
-			if (isRequired)
-			{
-				return RefineNameAndType(fieldName, tsTypeName);
-			}
-
 			var isAny = codeMemberField.Name == "any";
 			var fieldTypeInfo = codeMemberField.Type.UserData[UserDataKeys.FieldTypeInfo] as FieldTypeInfo;
 			if (fieldTypeInfo != null)
 			{
 				var isComplex = fieldTypeInfo.IsArray || fieldTypeInfo.IsComplex;
-				var alreadyNullable = tsTypeName.Contains("| null");
-				if (!alreadyNullable && !isAny && !isComplex)  //todo: refine this after
+				var alreadyWithNull = tsTypeName.Contains("| null");
+				if ((!alreadyWithNull && !isAny && !isComplex && isOptional) || fieldTypeInfo.IsJsonRequired)
 				{
 					tsTypeName += " | null"; //optional null
 				}
@@ -1249,7 +1261,7 @@ https://angular.io/guide/dependency-injection-in-action
 				Console.Error.WriteLine("No FieldTypeInfo in UserData");
 			}
 
-			return RefineNameAndType(fieldName, tsTypeName);
+			return tsTypeName;
 		}
 
 		/// <summary>
@@ -1304,6 +1316,12 @@ https://angular.io/guide/dependency-injection-in-action
 			return TypeMapper.MapCodeTypeReferenceToTsText(codeTypeReference);
 		}
 
+		/// <summary>
+		/// TS text: {name}: {typeName}
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="typeName"></param>
+		/// <returns></returns>
 		static string RefineNameAndType(string name, string typeName)
 		{
 			return $"{name}: {typeName}";

@@ -146,8 +146,8 @@ namespace Fonlow.TypeScriptCodeDom
 				var keyTypeReferenceText = MapCodeTypeReferenceToTsText(codeTypeReference.TypeArguments[0]);
 				var valueTypeReferenceText = MapCodeTypeReferenceToTsText(codeTypeReference.TypeArguments[1]);
 				return TsCodeGenerationOptions.Instance.CamelCase ?
-					$"{{key: {keyTypeReferenceText}, value: {valueTypeReferenceText} }}"
-					: $"{{Key: {keyTypeReferenceText}, Value: {valueTypeReferenceText} }}";
+					$"{{ key: {keyTypeReferenceText}, value: {valueTypeReferenceText} }}"
+					: $"{{ Key: {keyTypeReferenceText}, Value: {valueTypeReferenceText} }}";
 			}
 
 			if (codeTypeReference.BaseType.Contains("System.Collections.Generic.Dictionary"))
@@ -156,13 +156,13 @@ namespace Fonlow.TypeScriptCodeDom
 				var keyTypeReferenceText = MapCodeTypeReferenceToTsText(codeTypeReference.TypeArguments[0]);
 				var valueTypeReferenceText = MapCodeTypeReferenceToTsText(codeTypeReference.TypeArguments[1]);
 				return TsCodeGenerationOptions.Instance.CamelCase ?
-					$"{{[id: {keyTypeReferenceText}]: {valueTypeReferenceText} }}"
-					: $"{{[Id: {keyTypeReferenceText}]: {valueTypeReferenceText} }}";
+					$"{{ [id: {keyTypeReferenceText}]: {valueTypeReferenceText} }}"
+					: $"{{ [Id: {keyTypeReferenceText}]: {valueTypeReferenceText} }}";
 			}
 
 			if (codeTypeReference.BaseType.Contains("System.Tuple"))
 			{
-				return $"{{{MapCodeTypeReferenceCollectionToTupleTsText(codeTypeReference.TypeArguments)}}}";
+				return $"{{ {MapCodeTypeReferenceCollectionToTupleTsText(codeTypeReference.TypeArguments)} }}";
 			}
 
 			if (codeTypeReference.TypeArguments.Count > 0)
